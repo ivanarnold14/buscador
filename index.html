@@ -42,70 +42,57 @@
     </div>
   </div>
 
-  <script>
   // Función para realizar la búsqueda en Google Sheets
-  function searchInGoogleSheets(searchTerm) {
-    // ID de la hoja de cálculo de Google Sheets
-    var spreadsheetId = '1uxwfQA1Dj7XHechUB2GWaYhq-VPl2rMzPepNSE3zDtM';
+function searchInGoogleSheets(searchTerm) {
+  // ID de la hoja de cálculo de Google Sheets
+  var spreadsheetId = '1uxwfQA1Dj7XHechUB2GWaYhq-VPl2rMzPepNSE3zDtM';
 
-    // Rango en el que se realizará la búsqueda (por ejemplo, A1:D100)
-    var range = 'shutterstock!A1:D100';
+  // Nombre de la hoja de cálculo en la que se realizará la búsqueda
+  var sheetName = 'shutterstock';
 
-    // Credenciales de autenticación de la API de Google Sheets
-    var apiKey = 'AIzaSyDCWMQksGjZpej-HmgTNe2fP_HQp4og0Bc';
+  // Credenciales de autenticación de la API de Google Sheets
+  var apiKey = 'AIzaSyDCWMQksGjZpej-HmgTNe2fP_HQp4og0Bc';
 
-    // Construir la URL de la solicitud a la API de Google Sheets
-    var url = 'https://sheets.googleapis.com/v4/spreadsheets/' + spreadsheetId + '/values/' + range + '?key=' + apiKey;
+  // Construir la URL de la solicitud a la API de Google Sheets
+  var url = 'https://sheets.googleapis.com/v4/spreadsheets/' + spreadsheetId + '/values/' + sheetName + '?key=' + apiKey;
 
-    // Realizar la solicitud GET para obtener los datos de la hoja de cálculo
-    fetch(url)
-      .then(function(response) {
-        return response.json();
-      })
-      .then(function(data) {
-        var rows = data.values;
-        var results = [];
+  // Realizar la solicitud GET para obtener los datos de la hoja de cálculo
+  fetch(url)
+    .then(function(response) {
+      return response.json();
+    })
+    .then(function(data) {
+      var rows = data.values;
+      var results = [];
 
-        // Recorrer las filas y buscar el término de búsqueda en cada celda
-        for (var i = 0; i < rows.length; i++) {
-          for (var j = 0; j < rows[i].length; j++) {
-            if (rows[i][j].includes(searchTerm)) {
-              results.push(rows[i][j]);
-            }
-          }
+      // Recorrer las filas y buscar el término de búsqueda en la columna A
+      for (var i = 0; i < rows.length; i++) {
+        if (rows[i][0] && rows[i][0].includes(searchTerm)) {
+          results.push(rows[i][1]); // Agregar el valor de la columna B al resultado
         }
+      }
 
-        // Mostrar los resultados en la página web
-        var resultsContainer = document.querySelector('.search-results');
-        resultsContainer.innerHTML = '';
+      // Mostrar los resultados en la página web
+      var resultsContainer = document.querySelector('.search-results');
+      resultsContainer.innerHTML = '';
 
-        if (results.length > 0) {
-          for (var k = 0; k < results.length; k++) {
-            var resultItem = document.createElement('p');
-            resultItem.textContent = results[k];
-            resultsContainer.appendChild(resultItem);
-          }
-        } else {
-          var noResultsMessage = document.createElement('p');
-          noResultsMessage.textContent = 'No se encontraron resultados.';
-          resultsContainer.appendChild(noResultsMessage);
+      if (results.length > 0) {
+        for (var k = 0; k < results.length; k++) {
+          var resultItem = document.createElement('p');
+          resultItem.textContent = results[k];
+          resultsContainer.appendChild(resultItem);
         }
-      })
-      .catch(function(error) {
-        console.log('Error al obtener los datos de Google Sheets:', error);
-      });
-  }
+      } else {
+        var noResultsMessage = document.createElement('p');
+        noResultsMessage.textContent = 'No se encontraron resultados.';
+        resultsContainer.appendChild(noResultsMessage);
+      }
+    })
+    .catch(function(error) {
+      console.log('Error al obtener los datos de Google Sheets:', error);
+    });
+}
 
-  // Obtener el formulario de búsqueda
-  var searchForm = document.querySelector('.search-form');
-
-  // Agregar un evento de envío de formulario
-  searchForm.addEventListener('submit', function(event) {
-    event.preventDefault();
-    var searchTerm = searchForm.querySelector('input[name="search-term"]').value;
-    searchInGoogleSheets(searchTerm);
-  });
-</script>
 
 </body>
 </html>
