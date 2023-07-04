@@ -49,10 +49,10 @@
       var spreadsheetId = '1uxwfQA1Dj7XHechUB2GWaYhq-VPl2rMzPepNSE3zDtM';
 
       // Nombre de la hoja de cálculo en la que se realizará la búsqueda
-      var sheetName = 'shutterstock';
+      var sheetName = 'Nombre de la hoja';
 
       // Credenciales de autenticación de la API de Google Sheets
-      var apiKey = 'AIzaSyDCWMQksGjZpej-HmgTNe2fP_HQp4og0Bc';
+      var apiKey = 'Tu API Key';
 
       // Construir la URL de la solicitud a la API de Google Sheets
       var url = `https://sheets.googleapis.com/v4/spreadsheets/${spreadsheetId}/values/${sheetName}?key=${apiKey}`;
@@ -87,24 +87,24 @@
             var noResultsMessage = document.createElement('p');
             noResultsMessage.textContent = 'No se encontraron resultados.';
             resultsContainer.appendChild(noResultsMessage);
+            resultsContainer.appendChild(noResultsMessage);
           }
         })
         .catch(function(error) {
-          console.log('Error al obtener los
-console.log('Error al obtener los datos de Google Sheets:', error);
-  });
-}
+          console.log('Error al obtener los datos de Google Sheets:', error);
+        });
+    }
 
-// Obtener el formulario de búsqueda
-var searchForm = document.querySelector('.search-form');
+    // Obtener el formulario de búsqueda
+    var searchForm = document.querySelector('.search-form');
 
-// Agregar un evento de envío de formulario
-searchForm.addEventListener('submit', function(event) {
-  event.preventDefault();
-  var searchTerm = searchForm.querySelector('input[name="search-term"]').value;
-  searchInGoogleSheets(searchTerm);
-});
-</script>
+    // Agregar un evento de envío de formulario
+    searchForm.addEventListener('submit', function(event) {
+      event.preventDefault();
+      var searchTerm = searchForm.querySelector('input[name="search-term"]').value;
+      searchInGoogleSheets(searchTerm);
+    });
+  </script>
 
 </body>
 </html>
