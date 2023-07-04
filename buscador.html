@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Buscador</title>
+  <style>
+    /* Estilos CSS para la página */
+    body {
+      font-family: Arial, sans-serif;
+    }
+    .container {
+      max-width: 500px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+    .search-form input[type="text"] {
+      width: 100%;
+      padding: 10px;
+      font-size: 16px;
+    }
+    .search-form input[type="submit"] {
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+    .search-results {
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Buscador</h1>
+    <form class="search-form">
+      <input type="text" name="search-term" placeholder="Ingrese el término de búsqueda">
+      <input type="submit" value="Buscar">
+    </form>
+    <div class="search-results">
+      <!-- Aquí se mostrarán los resultados de la búsqueda -->
+    </div>
+  </div>
+
+  <script>
+  // Función para realizar la búsqueda en Google Sheets
+  function searchInGoogleSheets(searchTerm) {
+    // ID de la hoja de cálculo de Google Sheets
+    var spreadsheetId = '1uxwfQA1Dj7XHechUB2GWaYhq-VPl2rMzPepNSE3zDtM';
+
+    // Rango en el que se realizará la búsqueda (por ejemplo, A1:D100)
+    var range = 'shutterstock!A1:D100';
+
+    // Credenciales de autenticación de la API de Google Sheets
+    var apiKey = 'AIzaSyDCWMQksGjZpej-HmgTNe2fP_HQp4og0Bc';
+
+    // Construir la URL de la solicitud a la API de Google Sheets
+    var url = 'https://sheets.googleapis.com/v4/spreadsheets/' + spreadsheetId + '/values/' + range + '?key=' + apiKey;
+
+    // Realizar la solicitud GET para obtener los datos de la hoja de cálculo
+    fetch(url)
+      .then(function(response) {
+        return response.json();
+      })
+      .then(function(data) {
+        var rows = data.values;
+        var results = [];
+
+        // Recorrer las filas y buscar el término de búsqueda en cada celda
+        for (var i = 0; i < rows.length; i++) {
+          for (var j = 0; j < rows[i].length; j++) {
+            if (rows[i][j].includes(searchTerm)) {
+              results.push(rows[i][j]);
+            }
+          }
+        }
+
+        // Mostrar los resultados en la página web
+        var resultsContainer = document.querySelector('.search-results');
+        resultsContainer.innerHTML = '';
+
+        if (results.length > 0) {
+          for (var k = 0; k < results.length; k++) {
+            var resultItem = document.createElement('p');
+            resultItem.textContent = results[k];
+            resultsContainer.appendChild(resultItem);
+          }
+        } else {
+          var noResultsMessage = document.createElement('p');
+          noResultsMessage.textContent = 'No se encontraron resultados.';
+          resultsContainer.appendChild(noResultsMessage);
+        }
+      })
+      .catch(function(error) {
+        console.log('Error al obtener los datos de Google Sheets:', error);
+      });
+  }
+
+  // Obtener el formulario de búsqueda
+  var searchForm = document.querySelector('.search-form');
+
+  // Agregar un evento de envío de formulario
+  searchForm.addEventListener('submit', function(event) {
+    event.preventDefault();
+    var searchTerm = searchForm.querySelector('input[name="search-term"]').value;
+    searchInGoogleSheets(searchTerm);
+  });
+</script>
+
+</body>
+</html>
