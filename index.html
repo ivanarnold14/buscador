@@ -3,7 +3,7 @@
 <head>
   <title>Buscador</title>
   <style>
-    /* Estilos CSS para la p·gina */
+    /* Estilos CSS para la p√°gina */
     body {
       font-family: Arial, sans-serif;
     }
@@ -34,30 +34,30 @@
   <div class="container">
     <h1>Buscador</h1>
     <form class="search-form">
-      <input type="text" name="search-term" placeholder="Ingrese el tÈrmino de b˙squeda">
+      <input type="text" name="search-term" placeholder="Ingrese el t√©rmino de b√∫squeda">
       <input type="submit" value="Buscar">
     </form>
     <div class="search-results">
-      <!-- AquÌ se mostrar·n los resultados de la b˙squeda -->
+      <!-- Aqu√≠ se mostrar√°n los resultados de la b√∫squeda -->
     </div>
   </div>
 
   <script>
-  // FunciÛn para realizar la b˙squeda en Google Sheets
+  // Funci√≥n para realizar la b√∫squeda en Google Sheets
   function searchInGoogleSheets(searchTerm) {
-    // ID de la hoja de c·lculo de Google Sheets
+    // ID de la hoja de c√°lculo de Google Sheets
     var spreadsheetId = '1uxwfQA1Dj7XHechUB2GWaYhq-VPl2rMzPepNSE3zDtM';
 
-    // Rango en el que se realizar· la b˙squeda (por ejemplo, A1:D100)
+    // Rango en el que se realizar√° la b√∫squeda (por ejemplo, A1:D100)
     var range = 'shutterstock!A1:D100';
 
-    // Credenciales de autenticaciÛn de la API de Google Sheets
+    // Credenciales de autenticaci√≥n de la API de Google Sheets
     var apiKey = 'AIzaSyDCWMQksGjZpej-HmgTNe2fP_HQp4og0Bc';
 
     // Construir la URL de la solicitud a la API de Google Sheets
     var url = 'https://sheets.googleapis.com/v4/spreadsheets/' + spreadsheetId + '/values/' + range + '?key=' + apiKey;
 
-    // Realizar la solicitud GET para obtener los datos de la hoja de c·lculo
+    // Realizar la solicitud GET para obtener los datos de la hoja de c√°lculo
     fetch(url)
       .then(function(response) {
         return response.json();
@@ -66,7 +66,7 @@
         var rows = data.values;
         var results = [];
 
-        // Recorrer las filas y buscar el tÈrmino de b˙squeda en cada celda
+        // Recorrer las filas y buscar el t√©rmino de b√∫squeda en cada celda
         for (var i = 0; i < rows.length; i++) {
           for (var j = 0; j < rows[i].length; j++) {
             if (rows[i][j].includes(searchTerm)) {
@@ -75,7 +75,7 @@
           }
         }
 
-        // Mostrar los resultados en la p·gina web
+        // Mostrar los resultados en la p√°gina web
         var resultsContainer = document.querySelector('.search-results');
         resultsContainer.innerHTML = '';
 
@@ -96,10 +96,10 @@
       });
   }
 
-  // Obtener el formulario de b˙squeda
+  // Obtener el formulario de b√∫squeda
   var searchForm = document.querySelector('.search-form');
 
-  // Agregar un evento de envÌo de formulario
+  // Agregar un evento de env√≠o de formulario
   searchForm.addEventListener('submit', function(event) {
     event.preventDefault();
     var searchTerm = searchForm.querySelector('input[name="search-term"]').value;
