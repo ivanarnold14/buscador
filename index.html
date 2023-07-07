@@ -105,9 +105,19 @@
     searchForm.addEventListener('submit', function(event) {
       event.preventDefault();
       var searchTerm = searchForm.querySelector('input[name="search-term"]').value;
-      searchInGoogleSheets(searchTerm);
+
+      // Validar si se ingresó un término de búsqueda
+      if (searchTerm.trim() !== '') {
+        searchInGoogleSheets(searchTerm);
+      } else {
+        var resultsContainer = document.querySelector('.search-results');
+        resultsContainer.innerHTML = '';
+
+        var noResultsMessage = document.createElement('p');
+        noResultsMessage.textContent = 'Por favor, ingrese un término de búsqueda.';
+        resultsContainer.appendChild(noResultsMessage);
+      }
     });
   </script>
-
 </body>
 </html>
