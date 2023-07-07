@@ -52,7 +52,7 @@
       var sheetName = 'shutterstock';
 
       // Credenciales de autenticación de la API de Google Sheets
-      var apiKey = 'AIzaSyDCWMQksGjZpej-HmgTNe2fP_HQp4og0Bc';
+      var apiKey = 'AIzaSyDCWMQksGjZpej-HmgTNe2fP_HQp4og0Bc'; // Reemplaza con tu propia API Key
 
       // Construir la URL de la solicitud a la API de Google Sheets
       var url = `https://sheets.googleapis.com/v4/spreadsheets/${spreadsheetId}/values/${sheetName}?key=${apiKey}`;
@@ -74,22 +74,22 @@
           }
 
           // Mostrar los resultados en la página web
-var resultsContainer = document.querySelector('.search-results');
-resultsContainer.innerHTML = '';
+          var resultsContainer = document.querySelector('.search-results');
+          resultsContainer.innerHTML = '';
 
-if (results.length > 0) {
-  for (var k = 0; k < results.length; k++) {
-    var resultLink = document.createElement('a');
-    resultLink.href = results[k]; // Establecer la URL como el resultado
-    resultLink.textContent = results[k]; // Establecer el texto del enlace como el resultado
-    resultsContainer.appendChild(resultLink);
-    resultsContainer.appendChild(document.createElement('br'));
-  }
-} else {
-  var noResultsMessage = document.createElement('p');
-  noResultsMessage.textContent = 'No se encontraron resultados.';
-  resultsContainer.appendChild(noResultsMessage);
-}
+          if (results.length > 0) {
+            for (var k = 0; k < results.length; k++) {
+              var resultLink = document.createElement('a');
+              resultLink.href = results[k]; // Establecer la URL como el resultado
+              resultLink.textContent = results[k]; // Establecer el texto del enlace como el resultado
+              resultLink.target = '_blank'; // Abrir enlace en una nueva pestaña
+              resultLink.rel = 'noopener noreferrer'; // Configurar atributos de seguridad para enlaces externos
+              resultsContainer.appendChild(resultLink);
+              resultsContainer.appendChild(document.createElement('br'));
+            }
+          } else {
+            var noResultsMessage = document.createElement('p');
+            noResultsMessage.textContent = 'No se encontraron resultados.';
             resultsContainer.appendChild(noResultsMessage);
           }
         })
