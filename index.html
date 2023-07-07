@@ -4,42 +4,37 @@
   <title>Buscador</title>
   <style>
     /* Estilos CSS para la página */
-body {
-  font-family: Arial, sans-serif;
-  background-color: #f1f1f1; /* Cambiar el color de fondo al tono deseado */
-}
-
-.container {
-  max-width: 500px;
-  margin: 0 auto;
-  padding: 20px;
-}
-
-.search-form input[type="text"] {
-  width: 100%;
-  padding: 10px;
-  font-size: 16px;
-}
-
-.search-form input[type="submit"] {
-  background-color: #d1eaff; /* Cambiar el color de fondo del botón al celeste claro deseado */
-  color: white;
-  border: 2px solid white; /* Cambiar el color del borde al blanco */
-  padding: 10px 20px;
-  font-size: 16px;
-  cursor: pointer;
-}
-
-.search-results {
-  margin-top: 20px;
-}
+    body {
+      font-family: Arial, sans-serif;
+    }
+    .container {
+      max-width: 500px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+    .search-form input[type="text"] {
+      width: 100%;
+      padding: 10px;
+      font-size: 16px;
+    }
+    .search-form input[type="submit"] {
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+    .search-results {
+      margin-top: 20px;
+    }
   </style>
 </head>
 <body>
   <div class="container">
     <h1>Buscador</h1>
     <form class="search-form">
-      <input type="text" name="search-term" placeholder="Ingrese el id de búsqueda">
+      <input type="text" name="search-term" placeholder="Ingrese el término de búsqueda">
       <input type="submit" value="Buscar">
     </form>
     <div class="search-results">
