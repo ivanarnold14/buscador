@@ -74,19 +74,22 @@
           }
 
           // Mostrar los resultados en la página web
-          var resultsContainer = document.querySelector('.search-results');
-          resultsContainer.innerHTML = '';
+var resultsContainer = document.querySelector('.search-results');
+resultsContainer.innerHTML = '';
 
-          if (results.length > 0) {
-            for (var k = 0; k < results.length; k++) {
-              var resultItem = document.createElement('p');
-              resultItem.textContent = results[k];
-              resultsContainer.appendChild(resultItem);
-            }
-          } else {
-            var noResultsMessage = document.createElement('p');
-            noResultsMessage.textContent = 'No se encontraron resultados.';
-            resultsContainer.appendChild(noResultsMessage);
+if (results.length > 0) {
+  for (var k = 0; k < results.length; k++) {
+    var resultLink = document.createElement('a');
+    resultLink.href = results[k]; // Establecer la URL como el resultado
+    resultLink.textContent = results[k]; // Establecer el texto del enlace como el resultado
+    resultsContainer.appendChild(resultLink);
+    resultsContainer.appendChild(document.createElement('br'));
+  }
+} else {
+  var noResultsMessage = document.createElement('p');
+  noResultsMessage.textContent = 'No se encontraron resultados.';
+  resultsContainer.appendChild(noResultsMessage);
+}
             resultsContainer.appendChild(noResultsMessage);
           }
         })
