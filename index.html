@@ -73,8 +73,7 @@
   <script src="https://apis.google.com/js/api.js"></script>
   <script>
     // Configuración de la API de Google Sheets
-    const CLIENT_ID = '1042069028978-a9cha7f9549rchs3o7cugbftislpo2na.apps.googleusercontent.com
-';
+    const CLIENT_ID = '1042069028978-a9cha7f9549rchs3o7cugbftislpo2na.apps.googleusercontent.com';
     const API_KEY = 'AIzaSyDCWMQksGjZpej-HmgTNe2fP_HQp4og0Bc';
     const SPREADSHEET_ID = '1NWF2h28vHpr7oOmtA2-8xWZeLnxtE6Uy3vkF5EZR1x4';
     const SCOPE = 'https://www.googleapis.com/auth/spreadsheets.readonly';
@@ -92,8 +91,8 @@
       // Inicializar la API de Google Sheets
       function initClient() {
         gapi.client.init({
-          apiKey: AIzaSyDCWMQksGjZpej-HmgTNe2fP_HQp4og0Bc,
-          clientId: 1042069028978-a9cha7f9549rchs3o7cugbftislpo2na.apps.googleusercontent.com,
+          apiKey: 'AIzaSyDCWMQksGjZpej-HmgTNe2fP_HQp4og0Bc',
+          clientId: '1042069028978-a9cha7f9549rchs3o7cugbftislpo2na.apps.googleusercontent.com',
           discoveryDocs: ['https://sheets.googleapis.com/$discovery/rest?version=v4'],
           scope: SCOPE
         }).then(function() {
@@ -107,7 +106,7 @@
       // Verificar las credenciales en el documento de Google Sheets
       function checkCredentials(username, password) {
         gapi.client.sheets.spreadsheets.values.get({
-          spreadsheetId: 1NWF2h28vHpr7oOmtA2-8xWZeLnxtE6Uy3vkF5EZR1x4,
+          spreadsheetId: '1NWF2h28vHpr7oOmtA2-8xWZeLnxtE6Uy3vkF5EZR1x4',
           range: 'Sheet1!A:B',
         }).then(function(response) {
           const values = response.result.values;
