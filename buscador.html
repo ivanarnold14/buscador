@@ -53,9 +53,10 @@
       // Verificar si la cookie o el valor de almacenamiento local está presente y es válido
       // Aquí asumimos que estás utilizando cookies como método de almacenamiento
       const isLoggedIn = document.cookie.includes('isLoggedIn=true');
+      const isAuthenticated = localStorage.getItem('authenticated') === 'true';
 
       // Si el usuario no ha iniciado sesión, redirigirlo a la página de inicio de sesión
-      if (!isLoggedIn) {
+      if (!isLoggedIn && !isAuthenticated) {
         window.location.href = 'https://www.youselene.github.io/buscador/';
       }
     }
