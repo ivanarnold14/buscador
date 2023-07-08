@@ -1,4 +1,20 @@
 <!DOCTYPE html>
+<script>
+  // Verificar si el usuario ha iniciado sesión
+  function checkSession() {
+    // Verificar si la cookie o el valor de almacenamiento local está presente y es válido
+    // Aquí asumimos que estás utilizando cookies como método de almacenamiento
+    const isLoggedIn = document.cookie.includes('isLoggedIn=true');
+
+    // Si el usuario no ha iniciado sesión, redirigirlo a la página de inicio de sesión
+    if (!isLoggedIn) {
+      window.location.href = 'https://www.ejemplo.github.io/nombre-del-repositorio/';
+    }
+  }
+
+  // Llamar a la función de verificación de sesión al cargar la página
+  checkSession();
+</script>
 <html>
 <head>
   <title>Buscador</title>
