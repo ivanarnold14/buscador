@@ -111,7 +111,8 @@
           // Buscar el nombre de usuario en la columna A y verificar la contraseña en la columna B
           for (let i = 0; i < values.length; i++) {
             if (values[i][0] === username && values[i][1] === password) {
-              // Credenciales válidas, redireccionar a la página principal
+             // Credenciales válidas, guardar indicador de autenticación y redireccionar a la página principal
+              localStorage.setItem('authenticated', 'true');
               window.location.href = 'https://youselene.github.io/buscador/buscador.html';
               return;
             }
