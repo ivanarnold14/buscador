@@ -1,20 +1,4 @@
 <!DOCTYPE html>
-<script>
-  // Verificar si el usuario ha iniciado sesión
-  function checkSession() {
-    // Verificar si la cookie o el valor de almacenamiento local está presente y es válido
-    // Aquí asumimos que estás utilizando cookies como método de almacenamiento
-    const isLoggedIn = document.cookie.includes('isLoggedIn=true');
-
-    // Si el usuario no ha iniciado sesión, redirigirlo a la página de inicio de sesión
-    if (!isLoggedIn) {
-      window.location.href = 'https://www.youselene.github.io/buscador/';
-    }
-  }
-
-  // Llamar a la función de verificación de sesión al cargar la página
-  checkSession();
-</script>
 <html>
 <head>
   <title>Buscador</title>
@@ -64,6 +48,21 @@
   </div>
 
   <script>
+    // Verificar si el usuario ha iniciado sesión
+    function checkSession() {
+      // Verificar si la cookie o el valor de almacenamiento local está presente y es válido
+      // Aquí asumimos que estás utilizando cookies como método de almacenamiento
+      const isLoggedIn = document.cookie.includes('isLoggedIn=true');
+
+      // Si el usuario no ha iniciado sesión, redirigirlo a la página de inicio de sesión
+      if (!isLoggedIn) {
+        window.location.href = 'https://www.ejemplo.github.io/nombre-del-repositorio/';
+      }
+    }
+
+    // Llamar a la función de verificación de sesión al cargar la página
+    checkSession();
+
     // Función para realizar la búsqueda en Google Sheets
     function searchInGoogleSheets(searchTerm) {
       // ID de la hoja de cálculo de Google Sheets
@@ -122,23 +121,23 @@
     // Obtener el formulario de búsqueda
     var searchForm = document.querySelector('.search-form');
 
-    // Agregar un evento de envío de formulario
-    searchForm.addEventListener('submit', function(event) {
-      event.preventDefault();
-      var searchTerm = searchForm.querySelector('input[name="search-term"]').value;
+     // Agregar un evento de envío de formulario
+      searchForm.addEventListener('submit', function(event) {
+        event.preventDefault();
+        var searchTerm = searchForm.querySelector('input[name="search-term"]').value;
 
-      // Validar si se ingresó un término de búsqueda
-      if (searchTerm.trim() !== '') {
-        searchInGoogleSheets(searchTerm);
-      } else {
-        var resultsContainer = document.querySelector('.search-results');
-        resultsContainer.innerHTML = '';
+        // Validar si se ingresó un término de búsqueda
+        if (searchTerm.trim() !== '') {
+          searchInGoogleSheets(searchTerm);
+        } else {
+          var resultsContainer = document.querySelector('.search-results');
+          resultsContainer.innerHTML = '';
 
-        var noResultsMessage = document.createElement('p');
-        noResultsMessage.textContent = 'Por favor, ingrese un término de búsqueda.';
-        resultsContainer.appendChild(noResultsMessage);
-      }
-    });
-  </script>
-</body>
+          var noResultsMessage = document.createElement('p');
+          noResultsMessage.textContent = 'Por favor, ingrese un término de búsqueda.';
+          resultsContainer.appendChild(noResultsMessage);
+        }
+      });
+    </script>
+  </body>
 </html>
