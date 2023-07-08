@@ -1,36 +1,36 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Inicio de sesión</title>
+  <title>Inicio de sesiÃ³n</title>
 </head>
 <body>
-  <h2>Inicio de sesión</h2>
+  <h2>Inicio de sesiÃ³n</h2>
   <form id="login-form">
     <label for="username">Nombre de usuario:</label>
     <input type="text" id="username" name="username" required>
     <br>
-    <label for="password">Contraseña:</label>
+    <label for="password">ContraseÃ±a:</label>
     <input type="password" id="password" name="password" required>
     <br>
-    <button type="submit">Iniciar sesión</button>
+    <button type="submit">Iniciar sesiÃ³n</button>
   </form>
 
   <script src="https://apis.google.com/js/api.js"></script>
   <script>
-    // Configuración de la API de Google Sheets
+    // ConfiguraciÃ³n de la API de Google Sheets
     const CLIENT_ID = 'TU_CLIENT_ID';
     const API_KEY = 'TU_API_KEY';
     const SPREADSHEET_ID = 'ID_DEL_DOCUMENTO_GOOGLE_SHEETS';
     const SCOPE = 'https://www.googleapis.com/auth/spreadsheets.readonly';
 
-    // Función para manejar el envío del formulario
+    // FunciÃ³n para manejar el envÃ­o del formulario
     function handleFormSubmit(event) {
-      event.preventDefault(); // Evitar el envío del formulario por defecto
+      event.preventDefault(); // Evitar el envÃ­o del formulario por defecto
       
       const username = document.getElementById('username').value;
       const password = document.getElementById('password').value;
 
-      // Autenticación de la API de Google Sheets
+      // AutenticaciÃ³n de la API de Google Sheets
       gapi.load('client', initClient);
 
       // Inicializar la API de Google Sheets
@@ -41,7 +41,7 @@
           discoveryDocs: ['https://sheets.googleapis.com/$discovery/rest?version=v4'],
           scope: SCOPE
         }).then(function() {
-          // Llamar a la función para verificar las credenciales
+          // Llamar a la funciÃ³n para verificar las credenciales
           checkCredentials(username, password);
         }, function(error) {
           console.log('Error al inicializar la API de Google Sheets:', error);
@@ -56,24 +56,24 @@
         }).then(function(response) {
           const values = response.result.values;
 
-          // Buscar el nombre de usuario en la columna A y verificar la contraseña en la columna B
+          // Buscar el nombre de usuario en la columna A y verificar la contraseÃ±a en la columna B
           for (let i = 0; i < values.length; i++) {
             if (values[i][0] === username && values[i][1] === password) {
-              // Credenciales válidas, redireccionar a la página principal
+              // Credenciales vÃ¡lidas, redireccionar a la pÃ¡gina principal
               window.location.href = 'URL_DE_LA_PAGINA_PRINCIPAL';
               return;
             }
           }
 
           // Si no se encuentra una coincidencia, mostrar un mensaje de error
-          alert('Credenciales inválidas');
+          alert('Credenciales invÃ¡lidas');
         }, function(error) {
           console.log('Error al obtener los datos de Google Sheets:', error);
         });
       }
     }
 
-    // Escuchar el evento de envío del formulario
+    // Escuchar el evento de envÃ­o del formulario
     document.getElementById('login-form').addEventListener('submit', handleFormSubmit);
   </script>
 </body>
