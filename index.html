@@ -106,7 +106,7 @@
       function checkCredentials(username, password) {
         gapi.client.sheets.spreadsheets.values.get({
           spreadsheetId: '1NWF2h28vHpr7oOmtA2-8xWZeLnxtE6Uy3vkF5EZR1x4',
-          range: 'Sheet1!A:B',
+          range: 'users!A:B',
         }).then(function(response) {
           const values = response.result.values;
 
