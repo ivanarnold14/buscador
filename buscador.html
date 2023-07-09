@@ -178,6 +178,11 @@ function searchInGoogleSheets(searchTerm) {
           noResultsMessage.textContent = 'No se encontraron resultados.';
           resultsContainer.appendChild(noResultsMessage);
         }
+        
+        // Registrar la búsqueda en Google Sheets
+        registerSearch(searchTerm);
+      })
+        
       })
       .catch(function(error) {
         console.log('Error al obtener los datos de Google Sheets:', error);
@@ -188,7 +193,7 @@ function searchInGoogleSheets(searchTerm) {
     resultsContainer.innerHTML = '';
 
     var noResultsMessage = document.createElement('p');
-    noResultsMessage.textContent = 'Por favor, ingrese una URL con números.';
+    noResultsMessage.textContent = 'Por favor, ingrese una URL';
     resultsContainer.appendChild(noResultsMessage);
   }
 }
