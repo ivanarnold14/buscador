@@ -170,55 +170,7 @@
       noResultsMessage.textContent = 'Por favor, ingrese un término de búsqueda.';
       resultsContainer.appendChild(noResultsMessage);
     }
-
-    // Registrar la búsqueda en Google Sheets
-    registerSearch(searchTerm);
-  });
-
-  // Función para registrar la búsqueda en Google Sheets
-  function registerSearch(searchTerm) {
-    // ID de la hoja de cálculo de Google Sheets
-    var spreadsheetId = '1QZ2dZ3PIcoXucvJtuda1Q7YJq3QnMU7aEqasygacQ6w';
-
-    // Obtener el usuario logueado
-    var username = getLoggedInUser();
-
-    // Datos de la búsqueda a registrar
-var rowData = [
-  ['timestamp', 'username', 'search term'],
-  [new Date().toLocaleString(), username, searchTerm]
-];
-    // Nombre de la hoja en la que se agregará la fila
-    var sheetName = 'registro';
     
-    // Credenciales de autenticación de la API de Google Sheets
-    var apiKey = 'AIzaSyDCWMQksGjZpej-HmgTNe2fP_HQp4og0Bc'; // Reemplaza con tu propia API Key
-
-    // Construir la URL de la solicitud a la API de Google Sheets para agregar una fila
-      var url = `https://sheets.googleapis.com/v4/spreadsheets/${spreadsheetId}/values/${encodeURIComponent(sheetName)}:append?valueInputOption=USER_ENTERED&key=${apiKey}`;
-    
-    // Configuración de la solicitud
-    var requestOptions = {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': 'Bearer ' + apiKey
-      },
-      body: JSON.stringify({
-        values: [rowData]
-      })
-    };
-
-    // Realizar la solicitud POST para registrar la búsqueda en Google Sheets
-    fetch(url, requestOptions)
-      .then(function(response) {
-        console.log('Búsqueda registrada con éxito.');
-      })
-      .catch(function(error) {
-        console.log('Error al registrar la búsqueda:', error);
-      });
-  }
-
   // Obtener el formulario de búsqueda
   var searchForm = document.querySelector('.search-form');
 
@@ -238,9 +190,6 @@ var rowData = [
       noResultsMessage.textContent = 'Por favor, ingrese un término de búsqueda.';
       resultsContainer.appendChild(noResultsMessage);
     }
-
-    // Registrar la búsqueda en Google Sheets
-    registerSearch(searchTerm);
   });
  </script>
    </body>
