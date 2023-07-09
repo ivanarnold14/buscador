@@ -111,10 +111,10 @@
 
           // Recorrer las filas y buscar el número en la columna A
           for (var i = 0; i < rows.length; i++) {
-            if (rows[i][0] && rows[i][0] === number) {
-              results.push(rows[i][1]); // Agregar el valor de la columna B al resultado
-            }
+          if (rows[i][0] && rows[i][0] === number) {
+            results.push(rows[i][1]); // Agregar el valor de la columna B al resultado
           }
+        }
 
           // Mostrar los resultados en la página web
           var resultsContainer = document.querySelector('.search-results');
