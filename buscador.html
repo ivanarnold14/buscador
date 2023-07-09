@@ -188,12 +188,15 @@ var rowData = [
   ['timestamp', 'username', 'search term'],
   [new Date().toLocaleString(), username, searchTerm]
 ];
-    // Construir la URL de la solicitud a la API de Google Sheets para agregar una fila
-      var url = `https://sheets.googleapis.com/v4/spreadsheets/${spreadsheetId}/values/registro:append?valueInputOption=USER_ENTERED`;
-
+    // Nombre de la hoja en la que se agregará la fila
+    var sheetName = 'registro';
+    
     // Credenciales de autenticación de la API de Google Sheets
     var apiKey = 'AIzaSyDCWMQksGjZpej-HmgTNe2fP_HQp4og0Bc'; // Reemplaza con tu propia API Key
 
+    // Construir la URL de la solicitud a la API de Google Sheets para agregar una fila
+      var url = `https://sheets.googleapis.com/v4/spreadsheets/${spreadsheetId}/values/${encodeURIComponent(sheetName)}:append?valueInputOption=USER_ENTERED&key=${apiKey}`;
+    
     // Configuración de la solicitud
     var requestOptions = {
       method: 'POST',
