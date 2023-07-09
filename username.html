@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Mostrar Username</title>
+</head>
+<body>
+  <button onclick="showUsername()">Mostrar Username</button>
+
+  <script>
+    // Función para mostrar el nombre de usuario guardado en la cookie
+    function showUsername() {
+      var username = getCookie('username');
+
+      if (username) {
+        alert('Username: ' + username);
+      } else {
+        alert('No se encontró un username en la cookie.');
+      }
+    }
+
+    // Función para obtener el valor de una cookie por su nombre
+    function getCookie(name) {
+      var cookies = document.cookie.split('; ');
+
+      for (var i = 0; i < cookies.length; i++) {
+        var cookie = cookies[i].split('=');
+        if (cookie[0] === name) {
+          return cookie[1];
+        }
+      }
+
+      return null;
+    }
+  </script>
+</body>
+</html>
