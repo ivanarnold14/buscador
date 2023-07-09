@@ -72,10 +72,20 @@ checkSession();
       // Datos de la búsqueda a registrar
       var rowData = [
         new Date().toLocaleString(),
-        getLoggedInUser(), // Reemplaza esto con tu lógica de obtención del usuario logueado
-        searchTerm
-      ];
-      
+        getLoggedInUser(), {
+  // Aquí debes implementar la lógica para obtener el usuario logueado
+  // Puedes usar tu propio sistema de autenticación o almacenar el usuario en una cookie, en local storage, etc.
+  // Por ejemplo, si tienes un formulario de login y guardas el nombre de usuario en una cookie llamada 'username'
+  // Puedes obtenerlo de la siguiente manera:
+  var username = document.cookie
+    .split('; ')
+    .find(row => row.startsWith('username='))
+    .split('=')[1];
+  
+  // Retornar el nombre de usuario logueado
+  return username;
+}
+    
  // Construir la URL de la solicitud a la API de Google Sheets para agregar una fila
       var url = `https://sheets.googleapis.com/v4/spreadsheets/${spreadsheetId}/values/Registro de Búsquedas:append?valueInputOption=USER_ENTERED`;
 
