@@ -63,7 +63,11 @@
 
   // Llamar a la función de verificación de sesión al cargar la página
   checkSession();
-
+    
+// Guardar el nombre de usuario en una cookie
+function setLoggedInUser(username) {
+  document.cookie = `username=${username}; expires=Thu, 01 Jan 2024 00:00:00 UTC; path=/`;
+}
   // Función para obtener el usuario logueado
   function getLoggedInUser() {
     // Aquí debes implementar la lógica para obtener el usuario logueado
@@ -78,11 +82,6 @@
     // Retornar el nombre de usuario logueado
     return username;
   }
-    
-// Guardar el nombre de usuario en una cookie
-function setLoggedInUser(username) {
-  document.cookie = `username=${username}; expires=Thu, 01 Jan 2024 00:00:00 UTC; path=/`;
-}
     
   // Función para registrar la búsqueda en Google Sheets
   function registerSearch(searchTerm) {
