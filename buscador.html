@@ -87,12 +87,11 @@
     // Obtener el usuario logueado
     var username = getLoggedInUser();
 
-    // Datos de la búsqueda a registrar
-    var rowData = [
-      new Date().toLocaleString(),
-      username,
-      searchTerm
-    ];
+  // Datos de la búsqueda a registrar
+var rowData = [
+  ['timestamp', 'username', 'search term'],
+  [new Date().toLocaleString(), username, searchTerm]
+];
 
     // Construir la URL de la solicitud a la API de Google Sheets para agregar una fila
     var url = `https://sheets.googleapis.com/v4/spreadsheets/${spreadsheetId}/values/Registro de Búsquedas:append?valueInputOption=USER_ENTERED`;
