@@ -47,7 +47,7 @@
     </div>
   </div>
 
-  <script>
+ <script>
   // Verificar si el usuario ha iniciado sesión
   function checkSession() {
     // Verificar si la cookie o el valor de almacenamiento local está presente y es válido
@@ -63,7 +63,7 @@
 
   // Llamar a la función de verificación de sesión al cargar la página
   checkSession();
-    
+
   // Función para obtener el usuario logueado
   function getLoggedInUser() {
     // Aquí debes implementar la lógica para obtener el usuario logueado
@@ -78,105 +78,107 @@
     // Retornar el nombre de usuario logueado
     return username;
   }
-       
-// Función para realizar la búsqueda en Google Sheets
-function searchInGoogleSheets(searchTerm) {
-  // Obtén solo los números de la URL utilizando una expresión regular
-  var numbers = searchTerm.match(/\d+/g);
 
-  // Verifica si se encontraron números en el término de búsqueda
-  if (numbers !== null) {
-    // Obtiene el primer número encontrado
-    var number = numbers[0];
+  // Función para realizar la búsqueda en Google Sheets
+  function searchInGoogleSheets(searchTerm) {
+    // Obtén solo los números de la URL utilizando una expresión regular
+    var numbers = searchTerm.match(/\d+/g);
 
-    // ID de la hoja de cálculo de Google Sheets
-    var spreadsheetId = '1uxwfQA1Dj7XHechUB2GWaYhq-VPl2rMzPepNSE3zDtM';
+    // Verifica si se encontraron números en el término de búsqueda
+    if (numbers !== null) {
+      // Obtiene el primer número encontrado
+      var number = numbers[0];
 
-    // Nombre de la hoja de cálculo en la que se realizará la búsqueda
-    var sheetName = 'shutterstock';
+      // ID de la hoja de cálculo de Google Sheets
+      var spreadsheetId = '1uxwfQA1Dj7XHechUB2GWaYhq-VPl2rMzPepNSE3zDtM';
 
-    // Credenciales de autenticación de la API de Google Sheets
-    var apiKey = 'AIzaSyDCWMQksGjZpej-HmgTNe2fP_HQp4og0Bc'; // Reemplaza con tu propia API Key
+      // Nombre de la hoja de cálculo en la que se realizará la búsqueda
+      var sheetName = 'shutterstock';
 
-    // Construir la URL de la solicitud a la API de Google Sheets
-    var url = `https://sheets.googleapis.com/v4/spreadsheets/${spreadsheetId}/values/${sheetName}?key=${apiKey}`;
+      // Credenciales de autenticación de la API de Google Sheets
+      var apiKey = 'TU_API_KEY'; // Reemplaza con tu propia API Key
 
-    // Realizar la solicitud GET para obtener los datos de la hoja de cálculo
-    fetch(url)
-      .then(function(response) {
-        return response.json();
-      })
-      .then(function(data) {
-        var rows = data.values;
-        var results = [];
+      // Construir la URL de la solicitud a la API de Google Sheets
+      var url = `https://sheets.googleapis.com/v4/spreadsheets/${spreadsheetId}/values/${sheetName}?key=${apiKey}`;
 
-        // Recorrer las filas y buscar el número en la columna A
-        for (var i = 0; i < rows.length; i++) {
-          if (rows[i][0] && rows[i][0] === number) {
-            results.push(rows[i][1]); // Agregar el valor de la columna B al resultado
+      // Realizar la solicitud GET para obtener los datos de la hoja de cálculo
+      fetch(url)
+        .then(function(response) {
+          return response.json();
+        })
+        .then(function(data) {
+          var rows = data.values;
+          var results = [];
+
+          // Recorrer las filas y buscar el número en la columna A
+          for (var i = 0; i < rows.length; i++) {
+            if (rows[i][0] && rows[i][0] === number) {
+              results.push(rows[i][1]); // Agregar el valor de la columna B al resultado
+            }
           }
-        }
 
-        // Mostrar los resultados en la página web
-        var resultsContainer = document.querySelector('.search-results');
-        resultsContainer.innerHTML = '';
+          // Mostrar los resultados en la página web
+          var resultsContainer = document.querySelector('.search-results');
+          resultsContainer.innerHTML = '';
 
-        if (results.length > 0) {
-          for (var k = 0; k < results.length; k++) {
-            var resultLink = document.createElement('a');
-            resultLink.href = results[k]; // Establecer la URL como el resultado
-            resultLink.textContent = results[k]; // Establecer el texto del enlace como el resultado
-            resultLink.target = '_blank'; // Abrir enlace en una nueva pestaña
-            resultLink.rel = 'noopener noreferrer'; // Configurar atributos de seguridad para enlaces externos
-            resultsContainer.appendChild(resultLink);
-            resultsContainer.appendChild(document.createElement('br'));
+          if (results.length > 0) {
+            for (var k = 0; k < results.length; k++) {
+              var resultLink = document.createElement('a');
+              resultLink.href = results[k]; // Establecer la URL como el resultado
+              resultLink.textContent = results[k]; // Establecer el texto del enlace como el resultado
+              resultLink.target = '_blank'; // Abrir enlace en una nueva pestaña
+              resultLink.rel = 'noopener noreferrer'; // Configurar atributos de seguridad para enlaces externos
+              resultsContainer.appendChild(resultLink);
+              resultsContainer.appendChild(document.createElement('br'));
+            }
+          } else {
+            var noResultsMessage = document.createElement('p');
+            noResultsMessage.textContent = 'No se encontraron resultados.';
+            resultsContainer.appendChild(noResultsMessage);
           }
-        } else {
-          var noResultsMessage = document.createElement('p');
-          noResultsMessage.textContent = 'No se encontraron resultados.';
-          resultsContainer.appendChild(noResultsMessage);
-        }
-          
-      })
-      .catch(function(error) {
-        console.log('Error al obtener los datos de Google Sheets:', error);
-      });
-  } else {
-    // No se encontraron números en el término de búsqueda
-    var resultsContainer = document.querySelector('.search-results');
-    resultsContainer.innerHTML = '';
 
-    var noResultsMessage = document.createElement('p');
-    noResultsMessage.textContent = 'Por favor, ingrese una URL';
-    resultsContainer.appendChild(noResultsMessage);
-  }
-}
+          // Registrar la búsqueda en Google Sheets
+          registerSearch(searchTerm);
+        })
+        .catch(function(error) {
+          console.log('Error al obtener los datos de Google Sheets:', error);
+        });
+    } else {
+      // No se encontraron números en el término de búsqueda
+      var resultsContainer = document.querySelector('.search-results');
+      resultsContainer.innerHTML = '';
 
-// Obtener el formulario de búsqueda
-var searchForm = document.querySelector('.search-form');
-
-// Agregar un evento de envío de formulario
-searchForm.addEventListener('submit', function(event) {
-  event.preventDefault();
-  var searchTerm = searchForm.querySelector('input[name="search-term"]').value;
-
-  // Validar si se ingresó un término de búsqueda
-  if (searchTerm.trim() !== '') {
-    searchInGoogleSheets(searchTerm);
-  } else {
-    var resultsContainer = document.querySelector('.search-results');
-    resultsContainer.innerHTML = '';
-
-    var noResultsMessage = document.createElement('p');
-    noResultsMessage.textContent = 'Por favor, ingrese un término de búsqueda.';
-    resultsContainer.appendChild(noResultsMessage);
+      var noResultsMessage = document.createElement('p');
+      noResultsMessage.textContent = 'Por favor, ingrese una URL';
+      resultsContainer.appendChild(noResultsMessage);
+    }
   }
 
-// Registrar la búsqueda en Google Sheets
-        registerSearch(searchTerm);
-      })
+  // Obtener el formulario de búsqueda
+  var searchForm = document.querySelector('.search-form');
 
-    // Función para registrar la búsqueda en Google Sheets
+  // Agregar un evento de envío de formulario
+  searchForm.addEventListener('submit', function(event) {
+    event.preventDefault();
+    var searchTerm = searchForm.querySelector('input[name="search-term"]').value;
+
+    // Validar si se ingresó un término de búsqueda
+    if (searchTerm.trim() !== '') {
+      searchInGoogleSheets(searchTerm);
+    } else {
+      var resultsContainer = document.querySelector('.search-results');
+      resultsContainer.innerHTML = '';
+
+      var noResultsMessage = document.createElement('p');
+      noResultsMessage.textContent = 'Por favor, ingrese un término de búsqueda.';
+      resultsContainer.appendChild(noResultsMessage);
+    }
+
+    // Registrar la búsqueda en Google Sheets
+    registerSearch(searchTerm);
+  });
+
+  // Función para registrar la búsqueda en Google Sheets
   function registerSearch(searchTerm) {
     // ID de la hoja de cálculo de Google Sheets
     var spreadsheetId = '10RI-4HxeURfzCPQBtnrhoq5yziRtxCJXrezb_4NcUQk';
@@ -184,17 +186,17 @@ searchForm.addEventListener('submit', function(event) {
     // Obtener el usuario logueado
     var username = getLoggedInUser();
 
-  // Datos de la búsqueda a registrar
-var rowData = [
-  ['timestamp', 'username', 'search term'],
-  [new Date().toLocaleString(), username, searchTerm]
-];
+    // Datos de la búsqueda a registrar
+    var rowData = [
+      ['timestamp', 'username', 'search term'],
+      [new Date().toLocaleString(), username, searchTerm]
+    ];
 
     // Construir la URL de la solicitud a la API de Google Sheets para agregar una fila
     var url = `https://sheets.googleapis.com/v4/spreadsheets/${spreadsheetId}/values/Registro de Búsquedas:append?valueInputOption=USER_ENTERED`;
 
     // Credenciales de autenticación de la API de Google Sheets
-    var apiKey = 'AIzaSyDCWMQksGjZpej-HmgTNe2fP_HQp4og0Bc'; // Reemplaza con tu propia API Key
+    var apiKey = 'TU_API_KEY'; // Reemplaza con tu propia API Key
 
     // Configuración de la solicitud
     var requestOptions = {
@@ -218,7 +220,30 @@ var rowData = [
       });
   }
 
-});
-    </script>
-  </body>
+  // Obtener el formulario de búsqueda
+  var searchForm = document.querySelector('.search-form');
+
+  // Agregar un evento de envío de formulario
+  searchForm.addEventListener('submit', function(event) {
+    event.preventDefault();
+    var searchTerm = searchForm.querySelector('input[name="search-term"]').value;
+
+    // Validar si se ingresó un término de búsqueda
+    if (searchTerm.trim() !== '') {
+      searchInGoogleSheets(searchTerm);
+    } else {
+      var resultsContainer = document.querySelector('.search-results');
+      resultsContainer.innerHTML = '';
+
+      var noResultsMessage = document.createElement('p');
+      noResultsMessage.textContent = 'Por favor, ingrese un término de búsqueda.';
+      resultsContainer.appendChild(noResultsMessage);
+    }
+
+    // Registrar la búsqueda en Google Sheets
+    registerSearch(searchTerm);
+  });
+ </script>
+   </body>
 </html>
+
