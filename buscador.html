@@ -136,8 +136,23 @@ function searchInGoogleSheets(searchTerm) {
           noResultsMessage.textContent = 'No se encontraron resultados.';
           resultsContainer.appendChild(noResultsMessage);
         }
-        
-        // Registrar la búsqueda en Google Sheets
+          
+      })
+      .catch(function(error) {
+        console.log('Error al obtener los datos de Google Sheets:', error);
+      });
+  } else {
+    // No se encontraron números en el término de búsqueda
+    var resultsContainer = document.querySelector('.search-results');
+    resultsContainer.innerHTML = '';
+
+    var noResultsMessage = document.createElement('p');
+    noResultsMessage.textContent = 'Por favor, ingrese una URL';
+    resultsContainer.appendChild(noResultsMessage);
+  }
+}
+
+    // Registrar la búsqueda en Google Sheets
         registerSearch(searchTerm);
       })
 
@@ -182,21 +197,6 @@ var rowData = [
         console.log('Error al registrar la búsqueda:', error);
       });
   }
-          
-      })
-      .catch(function(error) {
-        console.log('Error al obtener los datos de Google Sheets:', error);
-      });
-  } else {
-    // No se encontraron números en el término de búsqueda
-    var resultsContainer = document.querySelector('.search-results');
-    resultsContainer.innerHTML = '';
-
-    var noResultsMessage = document.createElement('p');
-    noResultsMessage.textContent = 'Por favor, ingrese una URL';
-    resultsContainer.appendChild(noResultsMessage);
-  }
-}
 
 // Obtener el formulario de búsqueda
 var searchForm = document.querySelector('.search-form');
