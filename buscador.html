@@ -48,71 +48,79 @@
   </div>
 
   <script>
-    // Verificar si el usuario ha iniciado sesión
-function checkSession() {
-  // Verificar si la cookie o el valor de almacenamiento local está presente y es válido
-  // Aquí asumimos que estás utilizando cookies como método de almacenamiento
-  const isLoggedIn = document.cookie.includes('isLoggedIn=true');
-  const isAuthenticated = localStorage.getItem('authenticated') === 'true';
+  // Verificar si el usuario ha iniciado sesión
+  function checkSession() {
+    // Verificar si la cookie o el valor de almacenamiento local está presente y es válido
+    // Aquí asumimos que estás utilizando cookies como método de almacenamiento
+    const isLoggedIn = document.cookie.includes('isLoggedIn=true');
+    const isAuthenticated = localStorage.getItem('authenticated') === 'true';
 
-  // Si el usuario no ha iniciado sesión, redirigirlo a la página de inicio de sesión
-  if (!isLoggedIn && !isAuthenticated) {
-    window.location.href = 'https://www.youselene.github.io/buscador/';
-  }
-}
-
-// Llamar a la función de verificación de sesión al cargar la página
-checkSession();
-    
-// Función para registrar la búsqueda en Google Sheets
-    function registerSearch(searchTerm) {
-      // ID de la hoja de cálculo de Google Sheets
-      var spreadsheetId = '10RI-4HxeURfzCPQBtnrhoq5yziRtxCJXrezb_4NcUQk';
-      
-      // Datos de la búsqueda a registrar
-      var rowData = [
-        new Date().toLocaleString(),
-        getLoggedInUser(), {
-  // Aquí debes implementar la lógica para obtener el usuario logueado
-  // Puedes usar tu propio sistema de autenticación o almacenar el usuario en una cookie, en local storage, etc.
-  // Por ejemplo, si tienes un formulario de login y guardas el nombre de usuario en una cookie llamada 'username'
-  // Puedes obtenerlo de la siguiente manera:
-  var username = document.cookie
-    .split('; ')
-    .find(row => row.startsWith('username='))
-    .split('=')[1];
-  
-  // Retornar el nombre de usuario logueado
-  return username;
-}
-    
- // Construir la URL de la solicitud a la API de Google Sheets para agregar una fila
-      var url = `https://sheets.googleapis.com/v4/spreadsheets/${spreadsheetId}/values/Registro de Búsquedas:append?valueInputOption=USER_ENTERED`;
-
-      // Credenciales de autenticación de la API de Google Sheets
-      var apiKey = 'AIzaSyDCWMQksGjZpej-HmgTNe2fP_HQp4og0Bc'; // Reemplaza con tu propia API Key
-
-      // Configuración de la solicitud
-      var requestOptions = {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': 'Bearer ' + apiKey
-        },
-        body: JSON.stringify({
-          values: [rowData]
-        })
-      };
-
-      // Realizar la solicitud POST para registrar la búsqueda en Google Sheets
-      fetch(url, requestOptions)
-        .then(function(response) {
-          console.log('Búsqueda registrada con éxito.');
-        })
-        .catch(function(error) {
-          console.log('Error al registrar la búsqueda:', error);
-        });
+    // Si el usuario no ha iniciado sesión, redirigirlo a la página de inicio de sesión
+    if (!isLoggedIn && !isAuthenticated) {
+      window.location.href = 'https://www.youselene.github.io/buscador/';
     }
+  }
+
+  // Llamar a la función de verificación de sesión al cargar la página
+  checkSession();
+
+  // Función para obtener el usuario logueado
+  function getLoggedInUser() {
+    // Aquí debes implementar la lógica para obtener el usuario logueado
+    // Puedes usar tu propio sistema de autenticación o almacenar el usuario en una cookie, en local storage, etc.
+    // Por ejemplo, si tienes un formulario de login y guardas el nombre de usuario en una cookie llamada 'username'
+    // Puedes obtenerlo de la siguiente manera:
+    var username = document.cookie
+      .split('; ')
+      .find(row => row.startsWith('username='))
+      .split('=')[1];
+
+    // Retornar el nombre de usuario logueado
+    return username;
+  }
+
+  // Función para registrar la búsqueda en Google Sheets
+  function registerSearch(searchTerm) {
+    // ID de la hoja de cálculo de Google Sheets
+    var spreadsheetId = '10RI-4HxeURfzCPQBtnrhoq5yziRtxCJXrezb_4NcUQk';
+
+    // Obtener el usuario logueado
+    var username = getLoggedInUser();
+
+    // Datos de la búsqueda a registrar
+    var rowData = [
+      new Date().toLocaleString(),
+      username,
+      searchTerm
+    ];
+
+    // Construir la URL de la solicitud a la API de Google Sheets para agregar una fila
+    var url = `https://sheets.googleapis.com/v4/spreadsheets/${spreadsheetId}/values/Registro de Búsquedas:append?valueInputOption=USER_ENTERED`;
+
+    // Credenciales de autenticación de la API de Google Sheets
+    var apiKey = 'TU_API_KEY'; // Reemplaza con tu propia API Key
+
+    // Configuración de la solicitud
+    var requestOptions = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + apiKey
+      },
+      body: JSON.stringify({
+        values: [rowData]
+      })
+    };
+
+    // Realizar la solicitud POST para registrar la búsqueda en Google Sheets
+    fetch(url, requestOptions)
+      .then(function(response) {
+        console.log('Búsqueda registrada con éxito.');
+      })
+      .catch(function(error) {
+        console.log('Error al registrar la búsqueda:', error);
+      });
+  }
       
 // Función para realizar la búsqueda en Google Sheets
 function searchInGoogleSheets(searchTerm) {
