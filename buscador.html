@@ -136,9 +136,6 @@
             noResultsMessage.textContent = 'No se encontraron resultados.';
             resultsContainer.appendChild(noResultsMessage);
           }
-
-          // Registrar la búsqueda en Google Sheets
-          registerSearch(searchTerm);
         })
         .catch(function(error) {
           console.log('Error al obtener los datos de Google Sheets:', error);
