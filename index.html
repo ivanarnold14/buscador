@@ -113,6 +113,8 @@
             if (values[i][0] === username && values[i][1] === password) {
              // Credenciales válidas, guardar indicador de autenticación y redireccionar a la página principal
               localStorage.setItem('authenticated', 'true');
+              // Guardar el nombre de usuario en una cookie
+          document.cookie = `username=${username}; expires=Thu, 01 Jan 2024 00:00:00 UTC; path=/`;
               window.location.href = 'https://youselene.github.io/buscador/buscador.html';
               return;
             }
