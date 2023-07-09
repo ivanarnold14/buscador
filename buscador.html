@@ -63,7 +63,47 @@ function checkSession() {
 
 // Llamar a la función de verificación de sesión al cargar la página
 checkSession();
+    
+// Función para registrar la búsqueda en Google Sheets
+    function registerSearch(searchTerm) {
+      // ID de la hoja de cálculo de Google Sheets
+      var spreadsheetId = '10RI-4HxeURfzCPQBtnrhoq5yziRtxCJXrezb_4NcUQk';
+      
+      // Datos de la búsqueda a registrar
+      var rowData = [
+        new Date().toLocaleString(),
+        getLoggedInUser(), // Reemplaza esto con tu lógica de obtención del usuario logueado
+        searchTerm
+      ];
+      
+ // Construir la URL de la solicitud a la API de Google Sheets para agregar una fila
+      var url = `https://sheets.googleapis.com/v4/spreadsheets/${spreadsheetId}/values/Registro de Búsquedas:append?valueInputOption=USER_ENTERED`;
 
+      // Credenciales de autenticación de la API de Google Sheets
+      var apiKey = 'AIzaSyDCWMQksGjZpej-HmgTNe2fP_HQp4og0Bc'; // Reemplaza con tu propia API Key
+
+      // Configuración de la solicitud
+      var requestOptions = {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer ' + apiKey
+        },
+        body: JSON.stringify({
+          values: [rowData]
+        })
+      };
+
+      // Realizar la solicitud POST para registrar la búsqueda en Google Sheets
+      fetch(url, requestOptions)
+        .then(function(response) {
+          console.log('Búsqueda registrada con éxito.');
+        })
+        .catch(function(error) {
+          console.log('Error al registrar la búsqueda:', error);
+        });
+    }
+      
 // Función para realizar la búsqueda en Google Sheets
 function searchInGoogleSheets(searchTerm) {
   // Obtén solo los números de la URL utilizando una expresión regular
