@@ -80,30 +80,27 @@
 
   // Función para realizar la búsqueda en Google Sheets
 function searchInGoogleSheets(searchTerm) {
-  // Obtén solo los números de la URL utilizando una expresión regular
-  var numbers = searchTerm.match(/\d{6,}/g);
+  // Buscar cualquier secuencia de caracteres que contenga al menos 6 dígitos consecutivos en la URL
+  var regex = /(\d{6,})/g;
+  var matches = searchTerm.match(regex);
 
-  // Verifica si se encontraron números de más de 5 cifras en el término de búsqueda
-  if (numbers !== null && numbers.length > 0) {
-    // Obtiene el primer número encontrado
-    var number = numbers[0];
-    
-    // Continúa con la lógica de búsqueda en tu documento de Google Sheets
+  // Verificar si se encontraron coincidencias
+  if (matches !== null && matches.length > 0) {
+    // Obtener el primer número encontrado
+    var number = matches[0];
+
+    // Continuar con la lógica de búsqueda en tu documento de Google Sheets
     // ...
-    
+
     // Ejemplo de impresión del número encontrado
-    console.log("Número de más de 5 cifras encontrado: " + number);
+    console.log("Número encontrado: " + number);
   } else {
-    // Si no se encontraron números de más de 5 cifras, realiza otra lógica de búsqueda o muestra un mensaje de error
+    // Si no se encontraron coincidencias, realizar otra lógica de búsqueda o mostrar un mensaje de error
     // ...
-    
-    console.log("No se encontraron números de más de 5 cifras en el término de búsqueda.");
+
+    console.log("No se encontraron números en el término de búsqueda.");
   }
 }
-
-// Ejemplo de uso
-var searchTerm = "www.ejemplo.com/foto-1234567?12?123";
-searchInGoogleSheets(searchTerm);
 
       // ID de la hoja de cálculo de Google Sheets
       var spreadsheetId = '1uxwfQA1Dj7XHechUB2GWaYhq-VPl2rMzPepNSE3zDtM';
