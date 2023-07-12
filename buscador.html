@@ -66,7 +66,7 @@
   // Función para realizar la búsqueda en Google Sheets
   function searchInGoogleSheets(searchTerm) {
     // Obtén solo los números de la URL utilizando una expresión regular
-    var numbers = searchTerm.match(/\d+/g);
+    var numbers = searchTerm.match(/\d{5,}/g);
 
     // Verifica si se encontraron números en el término de búsqueda
     if (numbers !== null) {
