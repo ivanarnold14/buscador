@@ -1,4 +1,3 @@
-<script>
   // Verificar si el usuario ha iniciado sesión
   function checkSession() {
     // Verificar si la cookie o el valor de almacenamiento local está presente y es válido
@@ -107,4 +106,3 @@
           resultsContainer.appendChild(noResultsMessage);
         }
       });
-    </script>
