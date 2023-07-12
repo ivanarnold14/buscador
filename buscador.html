@@ -64,14 +64,53 @@
   checkSession();
 
   // Función para realizar la búsqueda en Google Sheets
-  function searchInGoogleSheets(searchTerm) {
-    // Obtén solo los números de la URL utilizando una expresión regular
-    var numbers = searchTerm.match(/\d+/g);
+function searchInGoogleSheets(searchTerm) {
+  // Obtén solo los números de la URL utilizando una expresión regular
+  var numbers = searchTerm.match(/\d+/g);
 
-    // Verifica si se encontraron números en el término de búsqueda
-    if (numbers !== null) {
-      // Obtiene el primer número encontrado
-      var number = numbers[0];
+  // Verifica si se encontraron números en el término de búsqueda
+  if (numbers !== null) {
+    // Filtra los números para obtener solo los de más de 5 cifras
+    var filteredNumbers = numbers.filter(function(number) {
+      return number.length > 5;
+    });
+
+    // Verifica si se encontraron números de más de 5 cifras
+    if (filteredNumbers.length > 0) {
+      // Ordena los números de forma descendente por longitud
+      filteredNumbers.sort(function(a, b) {
+        return b.length - a.length;
+      });
+
+      // Obtiene el número con mayor longitud (mayor a 5 cifras)
+      var number = filteredNumbers[0];
+
+      // Obtiene la parte de la URL que contiene el número de más de 5 cifras
+      var urlPart = searchTerm.match(new RegExp("\\b" + number + "\\b"))[0];
+
+      // Continúa con la lógica de búsqueda en tu documento de Google Sheets utilizando "urlPart"
+      // ...
+
+      // Ejemplo de impresión del número y la parte de la URL utilizada
+      console.log("Número de más de 5 cifras encontrado: " + number);
+      console.log("Parte de la URL utilizada: " + urlPart);
+    } else {
+      // Si no se encontraron números de más de 5 cifras, realiza otra lógica de búsqueda o muestra un mensaje de error
+      // ...
+
+      console.log("No se encontraron números de más de 5 cifras en el término de búsqueda.");
+    }
+  } else {
+    // Si no se encontraron números en el término de búsqueda, realiza otra lógica de búsqueda o muestra un mensaje de error
+    // ...
+
+    console.log("No se encontraron números en el término de búsqueda.");
+  }
+}
+
+// Ejemplo de uso
+var searchTerm = "www.ejemplo.com/foto-12345-6789?12?123";
+searchInGoogleSheets(searchTerm);
 
       // ID de la hoja de cálculo de Google Sheets
       var spreadsheetId = '1uxwfQA1Dj7XHechUB2GWaYhq-VPl2rMzPepNSE3zDtM';
